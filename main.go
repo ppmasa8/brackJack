@@ -11,7 +11,7 @@ func Rand() int {
 	return n + 1
 }
 
-func Valid(s string) bool {
+func validHitOrStay(s string) bool {
 	return s == "hit" || s == "stay"
 }
 
@@ -22,8 +22,8 @@ func Hit(p []int) {
 		fmt.Println(v)
 	}
 }
-//
-//func Judge(p, d []int) {
+
+//func Judge(p, d []int) bool {
 //
 //}
 
@@ -44,7 +44,7 @@ func main() {
 	}
 	fmt.Println("ヒットするならhit, ステイならstayと入力してください")
 	fmt.Scanf("%s", &s)
-	if Valid(s) == false {
+	if validHitOrStay(s) == false {
 		fmt.Println("hitかstayと入力してください", s)
 		os.Exit(1)
 	}
