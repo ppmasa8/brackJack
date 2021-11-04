@@ -15,17 +15,43 @@ func Valid(s string) bool {
 	return s == "hit" || s == "stay"
 }
 
+func Hit(p []int) {
+	c := Rand()
+	p = append(p, c)
+	for _, v := range p {
+		fmt.Println(v)
+	}
+}
+//
+//func Judge(p, d []int) {
+//
+//}
+
 func main() {
-	a, b := Rand(), Rand()
 	var s string
 
-	// 対話部分
-	fmt.Println("あなたの手札は", a, "と", b, "です。")
+	// プレイヤー
+	p := []int{}
+	// ディーラー
+	d := []int{}
+
+	fmt.Println("あなたの手札")
+	for i := 0; i < 2; i++ {
+		pn := Rand()
+		p = append(p, pn)
+		d = append(d, Rand())
+		fmt.Println(pn, " ")
+	}
 	fmt.Println("ヒットするならhit, ステイならstayと入力してください")
 	fmt.Scanf("%s", &s)
 	if Valid(s) == false {
 		fmt.Println("hitかstayと入力してください", s)
 		os.Exit(1)
 	}
+
+	if s == "stay" {
+
+	}
+
 
 }
