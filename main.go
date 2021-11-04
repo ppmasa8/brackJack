@@ -23,9 +23,34 @@ func Hit(p []int) {
 	}
 }
 
-//func Judge(p, d []int) bool {
-//
-//}
+const NoneBurst  = 0
+const PBurst     = 1
+const DBurst     = 2
+const PAndDBurst = 3
+
+func validHands(p, d []int) int {
+	cntP, cntD := 0, 0
+	for _, v := range p {
+		cntP += v
+	}
+	for _, v := range d {
+		cntD += v
+	}
+
+	if cntP < 22 && cntD < 22 {
+		return NoneBurst
+	} else if cntP >= 22 && cntD < 22 {
+		return PBurst
+	} else if cntP < 22 && cntD >= 22 {
+		return DBurst
+	} else {
+		return PAndDBurst
+	}
+}
+
+func Judge(p, d []int) bool {
+
+}
 
 func main() {
 	var s string
