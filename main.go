@@ -48,8 +48,26 @@ func validHands(p, d []int) int {
 	}
 }
 
-func Judge(p, d []int) bool {
+const PWin = 0
+const DWin = 1
+const Draw = 2
 
+func Judge(p, d []int) int {
+	cntP, cntD := 0, 0
+	for _, v := range p {
+		cntP += v
+	}
+	for _, v := range d {
+		cntD += v
+	}
+
+	if cntP > cntD {
+		return PWin
+	} else if cntP < cntD {
+		return DWin
+	} else {
+		return Draw
+	}
 }
 
 func main() {
