@@ -24,19 +24,21 @@ func validHitOrStay(s string) bool {
 	return s == "hit" || s == "stay"
 }
 
-//func dealerAction(d *dealer) int {
-//	cnt := 0
-//	cpD := *d
-//	for _, v := range cpD {
-//		cnt += v
-//	}
-//
-//	if cnt < 16 {
-//
-//	} else {
-//		return 1
-//	}
-//}
+func dealerAction(d *dealer) []int {
+	cnt := 0
+	cpD := *d
+	for _, v := range cpD {
+		cnt += v
+	}
+
+	if cnt < 16 {
+		cpD = append(cpD, Hit())
+		cpD = dealerAction(&cpD)
+	} else {
+		return cpD
+	}
+	return cpD
+}
 
 func Hit() int {
 	c := Rand()
@@ -122,9 +124,11 @@ func main() {
 	}
 
 	// hitかstayを選ぶ
-	p := hitOrStay(&cpP)
+	cpP = hitOrStay(&cpP)
 
+	// dealerの行動を決める
+	cpD = dealerAction(&cpD)
 
-
-	fmt.Println(p)
+	fmt.Println(cpP)
+	fmt.Println("dealerの手札", cpD)
 }
