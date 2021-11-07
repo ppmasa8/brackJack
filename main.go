@@ -20,16 +20,21 @@ func Rand() int {
 	return i + 1
 }
 
+func Cnt(n []int) int {
+	cnt := 0
+	for _, v := range n {
+		cnt += v
+	}
+	return cnt
+}
+
 func validHitOrStay(s string) bool {
 	return s == "hit" || s == "stay"
 }
 
 func dealerAction(d *dealer) []int {
-	cnt := 0
 	cpD := *d
-	for _, v := range cpD {
-		cnt += v
-	}
+	cnt := Cnt(cpD)
 
 	if cnt < 16 {
 		cpD = append(cpD, Hit())
@@ -52,14 +57,8 @@ const DBurst = 2
 const PAndDBurst = 3
 
 func validHands(p *player, d *dealer) int {
-	cntP, cntD := 0, 0
 	cpP, cpD := *p, *d
-	for _, v := range cpP {
-		cntP += v
-	}
-	for _, v := range cpD {
-		cntD += v
-	}
+	cntP, cntD := Cnt(cpP), Cnt(cpD)
 
 	if cntP < 22 && cntD < 22 {
 		return NoneBurst
@@ -77,14 +76,8 @@ const DWin = 1
 const Draw = 2
 
 func Judge(p *player, d *dealer) int {
-	cntP, cntD := 0, 0
 	cpP, cpD := *p, *d
-	for _, v := range cpP {
-		cntP += v
-	}
-	for _, v := range cpD {
-		cntD += v
-	}
+	cntP, cntD := Cnt(cpP), Cnt(cpD)
 
 	if cntP > cntD {
 		return PWin
@@ -129,6 +122,15 @@ func main() {
 	// dealerの行動を決める
 	cpD = dealerAction(&cpD)
 
-	fmt.Println(cpP)
-	fmt.Println("dealerの手札", cpD)
+	//v := validHands(&cpP, &cpD)
+	//
+	//if v != NoneBurst {
+	//	switch v {
+	//	case PBurst:
+	//		fmt.Println("あなたの負け")
+	//	}
+	//}
+
+	fmt.Println("playerの手札", cpP, Cnt(cpP))
+	fmt.Println("dealerの手札", cpD, Cnt(cpD))
 }
