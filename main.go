@@ -122,14 +122,30 @@ func main() {
 	// dealerの行動を決める
 	cpD = dealerAction(&cpD)
 
-	//v := validHands(&cpP, &cpD)
-	//
-	//if v != NoneBurst {
-	//	switch v {
-	//	case PBurst:
-	//		fmt.Println("あなたの負け")
-	//	}
-	//}
+	v := validHands(&cpP, &cpD)
+
+	// 手札が21を超えた場合
+	if v != NoneBurst {
+		switch v {
+		case PBurst:
+			fmt.Println("あなたの手札は21を超えました。")
+			fmt.Println("あなたの負け", cpP, Cnt(cpP))
+			fmt.Println("dealerの手札", cpD, Cnt(cpD))
+			os.Exit(0)
+		case DBurst:
+			fmt.Println("ディーラーの手札が21を超えました。")
+			fmt.Println("あなたの勝ち", cpP, Cnt(cpP))
+			fmt.Println("dealerの手札", cpD, Cnt(cpD))
+			os.Exit(0)
+		case PAndDBurst:
+			fmt.Println("あなたの手札は21を超えました。")
+			fmt.Println("ディーラーの手札が21を超えました。")
+			fmt.Println("引き分けです。")
+			fmt.Println("playerの手札", cpP, Cnt(cpP))
+			fmt.Println("dealerの手札", cpD, Cnt(cpD))
+			os.Exit(0)
+		}
+	}
 
 	fmt.Println("playerの手札", cpP, Cnt(cpP))
 	fmt.Println("dealerの手札", cpD, Cnt(cpD))
