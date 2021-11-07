@@ -122,6 +122,7 @@ func main() {
 	// dealerの行動を決める
 	cpD = dealerAction(&cpD)
 
+	// 手札のバースト確認
 	v := validHands(&cpP, &cpD)
 
 	// 手札が21を超えた場合
@@ -129,12 +130,14 @@ func main() {
 		switch v {
 		case PBurst:
 			fmt.Println("あなたの手札は21を超えました。")
-			fmt.Println("あなたの負け", cpP, Cnt(cpP))
+			fmt.Println("あなたの負け")
+			fmt.Println("playerの手札", cpP, Cnt(cpP))
 			fmt.Println("dealerの手札", cpD, Cnt(cpD))
 			os.Exit(0)
 		case DBurst:
 			fmt.Println("ディーラーの手札が21を超えました。")
-			fmt.Println("あなたの勝ち", cpP, Cnt(cpP))
+			fmt.Println("あなたの勝ち")
+			fmt.Println("playerの手札", cpP, Cnt(cpP))
 			fmt.Println("dealerの手札", cpD, Cnt(cpD))
 			os.Exit(0)
 		case PAndDBurst:
@@ -147,6 +150,22 @@ func main() {
 		}
 	}
 
-	fmt.Println("playerの手札", cpP, Cnt(cpP))
-	fmt.Println("dealerの手札", cpD, Cnt(cpD))
+	// バーストなしで勝敗を決める場合
+	switch Judge(&cpP, &cpD) {
+	case PWin:
+		fmt.Println("あなたの勝ち")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		os.Exit(0)
+	case DWin:
+		fmt.Println("あなたの負け")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		os.Exit(0)
+	case Draw:
+		fmt.Println("引き分けです。")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		os.Exit(0)
+	}
 }
