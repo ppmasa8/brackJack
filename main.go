@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"time"
 )
 
 // playerの手札
@@ -13,8 +14,10 @@ type player []int
 type dealer []int
 
 func Rand() int {
-	n := rand.Intn(12)
-	return n + 1
+	n := rand.New(rand.NewSource(1))
+	n.Seed(time.Now().UnixNano())
+	i := n.Intn(12)
+	return i + 1
 }
 
 func validHitOrStay(s string) bool {
