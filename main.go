@@ -21,15 +21,24 @@ func validHitOrStay(s string) bool {
 	return s == "hit" || s == "stay"
 }
 
-func Hit(p *player) []int {
+//func dealerAction(d *dealer) int {
+//	cnt := 0
+//	cpD := *d
+//	for _, v := range cpD {
+//		cnt += v
+//	}
+//
+//	if cnt < 16 {
+//
+//	} else {
+//		return 1
+//	}
+//}
+
+func Hit() int {
 	c := Rand()
-	cp := *p
-	cp = append(cp, c)
-	for _, v := range cp {
-		fmt.Println(v)
-	}
-	*p = cp
-	return *p
+	fmt.Println(c)
+	return c
 }
 
 const NoneBurst = 0
@@ -91,7 +100,7 @@ func hitOrStay(p *player) []int {
 		os.Exit(1)
 	}
 	if s == "hit" {
-		cp = Hit(p)
+		cp = append(cp, Hit())
 		cp = hitOrStay(&cp)
 	} else {
 		return cp
@@ -111,6 +120,8 @@ func main() {
 
 	// hitかstayを選ぶ
 	p := hitOrStay(&cpP)
+
+
 
 	fmt.Println(p)
 }
