@@ -16,8 +16,7 @@ type dealer []int
 func Rand() int {
 	n := rand.New(rand.NewSource(1))
 	n.Seed(time.Now().UnixNano())
-	i := n.Intn(12)
-	return i + 1
+	return n.Intn(12) + 1
 }
 
 func Cnt(n []int) (cnt int) {
@@ -45,8 +44,7 @@ func dealerAction(d *dealer) []int {
 }
 
 func Hit() int {
-	c := Rand()
-	return c
+	return Rand()
 }
 
 const NoneBurst = 0
