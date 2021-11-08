@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -87,7 +88,7 @@ func Judge(p *player, d *dealer) int {
 	}
 }
 
-func hitOrStay(p *player) ([]int) {
+func hitOrStay(p *player) []int {
 	var s string
 	cp := *p
 	fmt.Println("ヒットするならhit, ステイならstayと入力してください")
@@ -174,10 +175,19 @@ func process() {
 	}
 }
 
-func main() {
+func retry() () {
 	var s string
-	process()
 	fmt.Println("retryしますか？yes/no")
 	fmt.Scanf("%s", &s)
-	fmt.Println(s)
+	if s == "yes" {
+		process()
+		retry()
+	} else {
+		os.Exit(0)
+	}
+}
+
+func main() {
+	process()
+	retry()
 }
