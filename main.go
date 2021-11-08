@@ -175,7 +175,7 @@ func process() {
 	}
 }
 
-func retry() () {
+func retry() {
 	var s string
 	fmt.Println("retryしますか？yes/no")
 	fmt.Scanf("%s", &s)
