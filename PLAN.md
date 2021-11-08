@@ -6,5 +6,5 @@
 - hit/stay機能 -> Done
 
 #### 有ると良い機能
-- retry機能
+- retry機能 -> Done
 - スプリット
