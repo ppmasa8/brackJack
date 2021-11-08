@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"os"
 	"time"
 )
 
@@ -88,14 +87,14 @@ func Judge(p *player, d *dealer) int {
 	}
 }
 
-func hitOrStay(p *player) []int {
+func hitOrStay(p *player) ([]int) {
 	var s string
 	cp := *p
 	fmt.Println("ヒットするならhit, ステイならstayと入力してください")
 	fmt.Scanf("%s", &s)
 	if validHitOrStay(s) == false {
 		fmt.Println("hitかstayと入力してください", s)
-		os.Exit(1)
+		return []int{}
 	}
 	if s == "hit" {
 		cp = append(cp, Hit())
@@ -106,7 +105,7 @@ func hitOrStay(p *player) []int {
 	return cp
 }
 
-func main() {
+func process() {
 	cpP, cpD := player{}, dealer{}
 	fmt.Println("あなたの手札")
 	for i := 0; i < 2; i++ {
@@ -118,6 +117,11 @@ func main() {
 
 	// hitかstayを選ぶ
 	cpP = hitOrStay(&cpP)
+
+	// hit or stay 以外の文字列入力を受けた際のハンドリング
+	if len(cpP) == 0 {
+		return
+	}
 
 	// dealerの行動を決める
 	cpD = dealerAction(&cpD)
@@ -133,20 +137,20 @@ func main() {
 			fmt.Println("あなたの負け")
 			fmt.Println("playerの手札", cpP, Cnt(cpP))
 			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			os.Exit(0)
+			return
 		case DBurst:
 			fmt.Println("ディーラーの手札が21を超えました。")
 			fmt.Println("あなたの勝ち")
 			fmt.Println("playerの手札", cpP, Cnt(cpP))
 			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			os.Exit(0)
+			return
 		case PAndDBurst:
 			fmt.Println("あなたの手札は21を超えました。")
 			fmt.Println("ディーラーの手札が21を超えました。")
 			fmt.Println("引き分けです。")
 			fmt.Println("playerの手札", cpP, Cnt(cpP))
 			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			os.Exit(0)
+			return
 		}
 	}
 
@@ -156,16 +160,24 @@ func main() {
 		fmt.Println("あなたの勝ち")
 		fmt.Println("playerの手札", cpP, Cnt(cpP))
 		fmt.Println("dealerの手札", cpD, Cnt(cpD))
-		os.Exit(0)
+		return
 	case DWin:
 		fmt.Println("あなたの負け")
 		fmt.Println("playerの手札", cpP, Cnt(cpP))
 		fmt.Println("dealerの手札", cpD, Cnt(cpD))
-		os.Exit(0)
+		return
 	case Draw:
 		fmt.Println("引き分けです。")
 		fmt.Println("playerの手札", cpP, Cnt(cpP))
 		fmt.Println("dealerの手札", cpD, Cnt(cpD))
-		os.Exit(0)
+		return
 	}
+}
+
+func main() {
+	var s string
+	process()
+	fmt.Println("retryしますか？yes/no")
+	fmt.Scanf("%s", &s)
+	fmt.Println(s)
 }
