@@ -20,8 +20,7 @@ func Rand() int {
 	return i + 1
 }
 
-func Cnt(n []int) int {
-	cnt := 0
+func Cnt(n []int) (cnt int) {
 	for _, v := range n {
 		cnt += v
 	}
@@ -47,7 +46,6 @@ func dealerAction(d *dealer) []int {
 
 func Hit() int {
 	c := Rand()
-	fmt.Println(c)
 	return c
 }
 
@@ -99,6 +97,7 @@ func hitOrStay(p *player) []int {
 	}
 	if s == "hit" {
 		cp = append(cp, Hit())
+		fmt.Println(cp, "計", Cnt(cp))
 		cp = hitOrStay(&cp)
 	} else {
 		return cp
@@ -113,8 +112,8 @@ func process() {
 		pn := Rand()
 		cpP = append(cpP, pn)
 		cpD = append(cpD, Rand())
-		fmt.Println(pn, " ")
 	}
+	fmt.Println(cpP, "計", Cnt(cpP))
 
 	// hitかstayを選ぶ
 	cpP = hitOrStay(&cpP)
