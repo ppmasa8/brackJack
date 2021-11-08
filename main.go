@@ -37,9 +37,8 @@ func dealerAction(d *dealer) []int {
 	if cnt < 16 {
 		cpD = append(cpD, Hit())
 		cpD = dealerAction(&cpD)
-	} else {
-		return cpD
 	}
+
 	return cpD
 }
 
@@ -97,8 +96,6 @@ func hitOrStay(p *player) []int {
 		cp = append(cp, Hit())
 		fmt.Println(cp, "計", Cnt(cp))
 		cp = hitOrStay(&cp)
-	} else {
-		return cp
 	}
 	return cp
 }
@@ -179,12 +176,11 @@ func retry() {
 	if s == "yes" {
 		process()
 		retry()
-	} else {
-		os.Exit(0)
 	}
 }
 
 func main() {
 	process()
 	retry()
+	os.Exit(0)
 }
