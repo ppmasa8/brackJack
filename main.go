@@ -46,24 +46,9 @@ func Hit() int {
 	return Rand()
 }
 
-const NoneBurst = 0
-const PBurst = 1
-const DBurst = 2
-const PAndDBurst = 3
-
-func validHands(p *player, d *dealer) int {
-	cpP, cpD := *p, *d
-	cntP, cntD := Cnt(cpP), Cnt(cpD)
-
-	if cntP < 22 && cntD < 22 {
-		return NoneBurst
-	} else if cntP >= 22 && cntD < 22 {
-		return PBurst
-	} else if cntP < 22 && cntD >= 22 {
-		return DBurst
-	} else {
-		return PAndDBurst
-	}
+func validHands(n []int) bool {
+	cnt := Cnt(n)
+	return cnt < 22
 }
 
 const PWin = 0
@@ -122,31 +107,28 @@ func process() {
 	cpD = dealerAction(&cpD)
 
 	// 手札のバースト確認
-	v := validHands(&cpP, &cpD)
+	bp, bd := validHands(cpP), validHands(cpD)
 
 	// 手札が21を超えた場合
-	if v != NoneBurst {
-		switch v {
-		case PBurst:
-			fmt.Println("あなたの手札は21を超えました。")
-			fmt.Println("あなたの負け")
-			fmt.Println("playerの手札", cpP, Cnt(cpP))
-			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			return
-		case DBurst:
-			fmt.Println("ディーラーの手札が21を超えました。")
-			fmt.Println("あなたの勝ち")
-			fmt.Println("playerの手札", cpP, Cnt(cpP))
-			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			return
-		case PAndDBurst:
-			fmt.Println("あなたの手札は21を超えました。")
-			fmt.Println("ディーラーの手札が21を超えました。")
-			fmt.Println("引き分けです。")
-			fmt.Println("playerの手札", cpP, Cnt(cpP))
-			fmt.Println("dealerの手札", cpD, Cnt(cpD))
-			return
-		}
+	if !bp && !bd {
+		fmt.Println("あなたの手札は21を超えました。")
+		fmt.Println("ディーラーの手札が21を超えました。")
+		fmt.Println("引き分けです。")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		return
+	} else if !bp && bd {
+		fmt.Println("あなたの手札は21を超えました。")
+		fmt.Println("あなたの負け")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		return
+	} else if bp && !bd {
+		fmt.Println("ディーラーの手札が21を超えました。")
+		fmt.Println("あなたの勝ち")
+		fmt.Println("playerの手札", cpP, Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		return
 	}
 
 	// バーストなしで勝敗を決める場合
