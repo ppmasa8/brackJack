@@ -80,7 +80,11 @@ func hitOrStay(p *player) []int {
 	if s == "hit" {
 		cp = append(cp, Hit())
 		fmt.Println(cp, "計", Cnt(cp))
-		cp = hitOrStay(&cp)
+		if validHands(cp) {
+			cp = hitOrStay(&cp)
+		} else {
+			return cp
+		}
 	}
 	return cp
 }
