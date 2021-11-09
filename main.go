@@ -48,7 +48,7 @@ func Hit() int {
 
 func validHands(n []int) bool {
 	cnt := Cnt(n)
-	return cnt < 22
+	return cnt > 1 && cnt < 22
 }
 
 const PWin = 0
