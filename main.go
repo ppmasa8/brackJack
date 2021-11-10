@@ -1,6 +1,7 @@
 package main
 
 import (
+	"brackjack/lib"
 	"fmt"
 	"os"
 )
@@ -17,7 +18,7 @@ func validHitOrStay(s string) bool {
 
 func dealerAction(d *dealer) []int {
 	cpD := *d
-	cnt := Cnt(cpD)
+	cnt := lib.Cnt(cpD)
 
 	if cnt < 16 {
 		cpD = append(cpD, Hit())
@@ -28,11 +29,11 @@ func dealerAction(d *dealer) []int {
 }
 
 func Hit() int {
-	return Rand()
+	return lib.Rand()
 }
 
 func validHands(n []int) bool {
-	cnt := Cnt(n)
+	cnt := lib.Cnt(n)
 	return cnt > 1 && cnt < 22
 }
 
@@ -42,7 +43,7 @@ const Draw = 2
 
 func Judge(p *player, d *dealer) int {
 	cpP, cpD := *p, *d
-	cntP, cntD := Cnt(cpP), Cnt(cpD)
+	cntP, cntD := lib.Cnt(cpP), lib.Cnt(cpD)
 
 	if cntP > cntD {
 		return PWin
@@ -64,7 +65,7 @@ func hitOrStay(p *player) []int {
 	}
 	if s == "hit" {
 		cp = append(cp, Hit())
-		fmt.Println(cp, "計", Cnt(cp))
+		fmt.Println(cp, "計", lib.Cnt(cp))
 		if validHands(cp) {
 			cp = hitOrStay(&cp)
 		} else {
@@ -78,11 +79,11 @@ func process() {
 	cpP, cpD := player{}, dealer{}
 	fmt.Println("あなたの手札")
 	for i := 0; i < 2; i++ {
-		pn := Rand()
+		pn := lib.Rand()
 		cpP = append(cpP, pn)
-		cpD = append(cpD, Rand())
+		cpD = append(cpD, lib.Rand())
 	}
-	fmt.Println(cpP, "計", Cnt(cpP))
+	fmt.Println(cpP, "計", lib.Cnt(cpP))
 
 	// hitかstayを選ぶ
 	cpP = hitOrStay(&cpP)
@@ -103,20 +104,20 @@ func process() {
 		fmt.Println("あなたの手札は21を超えました。")
 		fmt.Println("ディーラーの手札が21を超えました。")
 		fmt.Println("引き分けです。")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	} else if !bp && bd {
 		fmt.Println("あなたの手札は21を超えました。")
 		fmt.Println("あなたの負け")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	} else if bp && !bd {
 		fmt.Println("ディーラーの手札が21を超えました。")
 		fmt.Println("あなたの勝ち")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	}
 
@@ -124,18 +125,18 @@ func process() {
 	switch Judge(&cpP, &cpD) {
 	case PWin:
 		fmt.Println("あなたの勝ち")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	case DWin:
 		fmt.Println("あなたの負け")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	case Draw:
 		fmt.Println("引き分けです。")
-		fmt.Println("playerの手札", cpP, Cnt(cpP))
-		fmt.Println("dealerの手札", cpD, Cnt(cpD))
+		fmt.Println("playerの手札", cpP, lib.Cnt(cpP))
+		fmt.Println("dealerの手札", cpD, lib.Cnt(cpD))
 		return
 	}
 }
