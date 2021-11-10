@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
-	"time"
 )
 
 // playerの手札
@@ -12,19 +10,6 @@ type player []int
 
 // CPUの手札
 type dealer []int
-
-func Rand() int {
-	n := rand.New(rand.NewSource(1))
-	n.Seed(time.Now().UnixNano())
-	return n.Intn(12) + 1
-}
-
-func Cnt(n []int) (cnt int) {
-	for _, v := range n {
-		cnt += v
-	}
-	return cnt
-}
 
 func validHitOrStay(s string) bool {
 	return s == "hit" || s == "stay"
