@@ -36,3 +36,12 @@ func Test_dealerAction(t *testing.T) {
 		t.Errorf("Return num is wrong. %v",lib.Cnt(retd))
 	}
 }
+
+func Test_validHands(t *testing.T) {
+	n, m := player{0, 1}, dealer{10, 11}
+	na, ma := validHands(n), validHands(m)
+	if na && !ma {
+		t.Errorf("Return boolean is wrong. %v", na)
+		t.Errorf("Return boolean is wrong. %v", ma)
+	}
+}
