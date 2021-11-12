@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"brackjack/lib"
+	"testing"
+)
 
 func Test_validHitOrStay(t *testing.T) {
 	// True version
@@ -16,5 +19,20 @@ func Test_validHitOrStay(t *testing.T) {
 	x := validHitOrStay(w)
 	if x {
 		t.Errorf("Return boolean is wrong. %v", x)
+	}
+}
+
+func Test_dealerAction(t *testing.T) {
+	// hit
+	d := dealer{1, 2, 3, 4, 5}
+	ret := dealerAction(&d)
+	if lib.Cnt(ret) <= 15 {
+		t.Errorf("Return num is wrong. %v",lib.Cnt(ret))
+	}
+	// No hit
+	nd := dealer{2, 3, 4, 5, 6}
+	retd := dealerAction(&nd)
+	if lib.Cnt(retd) != 20 {
+		t.Errorf("Return num is wrong. %v",lib.Cnt(retd))
 	}
 }
