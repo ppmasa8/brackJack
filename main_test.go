@@ -45,3 +45,12 @@ func Test_validHands(t *testing.T) {
 		t.Errorf("Return boolean is wrong. %v", ma)
 	}
 }
+
+func Test_Judge(t *testing.T) {
+	p, d := player{1, 2}, dealer{10, 11}
+	ans := Judge(&p, &d)
+	if ans != DWin {
+		t.Errorf("Return number is wrong. %v", ans)
+	}
+
+}
