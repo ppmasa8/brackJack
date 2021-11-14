@@ -2,6 +2,7 @@ package main
 
 import (
 	"brackjack/lib"
+	"fmt"
 	"testing"
 )
 
@@ -52,5 +53,10 @@ func Test_Judge(t *testing.T) {
 	if ans != DWin {
 		t.Errorf("Return number is wrong. %v", ans)
 	}
+}
 
+func Test_hitOrStay(t *testing.T) {
+	p := player{1, 2}
+	ans := hitOrStay(&p)
+	fmt.Println(ans)
 }
