@@ -28,13 +28,13 @@ func Test_dealerAction(t *testing.T) {
 	d := dealer{1, 2, 3, 4, 5}
 	ret := dealerAction(&d)
 	if lib.Cnt(ret) <= 15 {
-		t.Errorf("Return num is wrong. %v",lib.Cnt(ret))
+		t.Errorf("Return num is wrong. %v", lib.Cnt(ret))
 	}
 	// No hit
 	nd := dealer{2, 3, 4, 5, 6}
 	retd := dealerAction(&nd)
 	if lib.Cnt(retd) != 20 {
-		t.Errorf("Return num is wrong. %v",lib.Cnt(retd))
+		t.Errorf("Return num is wrong. %v", lib.Cnt(retd))
 	}
 }
 
