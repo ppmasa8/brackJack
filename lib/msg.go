@@ -7,7 +7,7 @@ const (
 	BurstPlayer = "あなたの手札は21を超えました。"
 	BurstDealer = "ディーラーの手札が21を超えました。"
 
-	DRAW        = "引き分けです"
+	DRAW       = "引き分けです"
 	PlayerWin  = "あなたの勝ち"
 	PlayerLose = "あなたの負け"
 
